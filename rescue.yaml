@@ -1,0 +1,31 @@
+---
+- hosts: ubuntu
+  become: yes
+  tasks:
+  - name: install ntp service
+    apt:
+      name: ntp
+      state: latest
+  - name: start ntp service
+    service:
+      name: ntp
+      state: started
+  - name: configure NTP service
+    block:
+      - name: setup ntp configuration
+        template:
+          src: ntp.conf.j2
+          dest: /etc/ntp.conf
+      - name: enable ntp service
+        service:
+          name: ntpd
+          enabled: yes
+    rescue:
+      - debug: msg="filled to configutre ntp so rolling back the changes"
+
+      - name: uninstall ntp package
+        apt:
+          name: ntp
+          state: absent
+    always:
+      - debug: msg="NTP service configured"

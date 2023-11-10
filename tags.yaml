@@ -1,0 +1,40 @@
+---
+- hosts: amazon
+  become: yes
+  tasks:
+  - name: install chrony
+    dnf:
+      name: chrony
+      state: latest
+    tags: 
+    - full
+    - install
+    - setup
+  - name: start chrony service
+    service:
+      name: chronyd
+      state: started
+    tags:
+    - start
+    - setup
+    - full
+  - name: restart chrony service
+    service:
+      name: chronyd
+      state: restarted
+    tags:
+    - restart
+  - name: stop chrony service
+    service:
+      name: chronyd
+      state: stopped
+    tags:
+    - stop
+  - name: create chrony user
+    user:
+      name: chronyuser
+      state: present
+    tags:
+    - user
+    - full
+

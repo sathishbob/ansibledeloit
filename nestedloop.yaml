@@ -1,0 +1,9 @@
+---
+- hosts: ubuntu
+  tasks:
+  - name: print nested loop variable
+    debug:
+      msg="{{ item[0] }} cloud is {{ item[1] }} in cost"
+    with_nested:
+    - [ 'aws', 'azure', 'gcp']
+    - [ 'costly', 'cheapest', 'cheap']

@@ -1,0 +1,6 @@
+---
+- hosts: amazon
+  tasks:
+  - name: print variable value
+    debug:
+      msg: " value is {{ value }}"

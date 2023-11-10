@@ -1,0 +1,8 @@
+---
+- hosts: amazon
+  vars_files:
+  - encvars.yaml
+  tasks:
+  - name: print vars
+    debug:
+      msg: "{{ sec1 }}"

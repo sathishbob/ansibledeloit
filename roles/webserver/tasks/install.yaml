@@ -1,0 +1,5 @@
+---
+- name: install nginx on ubuntu
+  apt:
+    name: nginx
+    state: latest

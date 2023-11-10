@@ -1,0 +1,12 @@
+[linux]
+65.2.82.139
+65.0.97.192
+
+[ubuntu]
+65.2.82.139
+
+[amazon]
+65.0.97.192 
+
+[amazon:vars]
+value=hostgroup

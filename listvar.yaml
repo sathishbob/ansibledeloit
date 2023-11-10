@@ -1,0 +1,20 @@
+---
+- hosts: linux
+  vars:
+    teams:
+    - india
+    - australia
+    - england
+    - pakistan
+    ipl: [csk, mi, rcb]
+  tasks:
+  - name: print team names
+    debug:
+      msg: "{{ item }}"
+    with_items:
+    - "{{ teams }}"
+  - name: print ipl team name
+    debug:
+      msg: "{{ item }}"
+    with_items:
+    - "{{ ipl }}"

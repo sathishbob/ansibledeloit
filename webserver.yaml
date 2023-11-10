@@ -1,0 +1,49 @@
+---
+- hosts: linux
+  become: yes
+  tasks:
+  - name: install apache on ubuntu
+    apt:
+      name: apache2
+      state: latest
+      update_cache: true
+    when: ansible_distribution == "Ubuntu"
+  - name: install apache on amazon linux
+    dnf:
+      name: httpd
+      state: latest
+      update_cache: true
+    when: ansible_distribution == "Amazon"
+  - name: Start and enable apache service on ubuntu
+    service:
+      name: apache2
+      state: started
+      enabled: true
+    when: ansible_distribution == "Ubuntu"
+  - name: Start and enable apache service on amazon linux
+    service:
+      name: httpd
+      state: started
+      enabled: true
+    when: ansible_distribution == "Amazon"
+  - name: Copy html files to the ubuntu node
+    template:
+      src: index.html.j2
+      dest: /var/www/html/index.html
+    notify: restart apache2
+    when: ansible_distribution == "Ubuntu"
+  - name: Copy html files to the amazon linux node
+    template:
+      src: index.html.j2
+      dest: /var/www/html/index.html
+    notify: restart httpd
+    when: ansible_distribution == "Amazon"
+  handlers:
+    - name: restart apache2
+      service:
+        name: apache2
+        state: restarted
+    - name: restart httpd
+      service:
+        name: httpd
+        state: restarted 

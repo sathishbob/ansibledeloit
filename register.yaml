@@ -1,0 +1,10 @@
+---
+- hosts: linux
+  ignore_errors: yes
+  tasks:
+  - name: print command output
+    command:
+      ls -l 
+    register: log
+  - debug: msg="standard output is {{ log.stdout }}"
+  - debug: msg="standard error is {{ log.stderr }}"
